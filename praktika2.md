@@ -71,3 +71,24 @@ cd express
 ## Задача 3
 
 Сформировать graphviz-код и получить изображения зависимостей matplotlib и express.
+
+## Задача 4
+
+Решить на MiniZinc задачу о счастливых билетах. Добавить ограничение на то, что все цифры билета должны быть различными (подсказка: используйте all_different). Найти минимальное решение для суммы 3 цифр.
+
+```minizinc
+include "globals.mzn";
+
+% массив из 6 цифр от 1 до 9
+array[1..6] of var 0..9: digits;
+constraint all_different(digits);
+
+constraint
+  digits[1] + digits[2] + digits[3] = digits[4] + digits[5] + digits[6];
+
+% Минимизация суммы
+var int: sum_digits = digits[1] + digits[2] + digits[3];
+solve minimize sum_digits;
+
+output ["\(show(digits[1]))\(show(digits[2]))\(show(digits[3]))\(show(digits[4]))\(show(digits[5]))\(show(digits[6]))\n"];
+```
